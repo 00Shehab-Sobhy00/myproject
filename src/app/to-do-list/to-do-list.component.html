@@ -1,0 +1,63 @@
+
+<div id="contaner">
+
+  <h2>{{ titleOverAll }}</h2>
+
+
+  <!--  select opstion-->
+  <select class="form-select form-select-sm"
+  name="ToDoList" [(ngModel)]="selectedOption">
+    <option  value="All" > All </option>
+    <option value="Complete"> Complete</option> 
+  </select> 
+
+  <br><br>
+ <!-- search -->
+  <input type="text" [(ngModel)]="searchTitle" (change)="titleFilter(searchTitle)">
+  <button  class="btn btn-dark" (click)="sreachSwitch =! sreachSwitch " > Search </button>
+  <ul *ngIf="searchTitle !== '' && sreachSwitch" style="list-style: none"   >
+
+    <li   *ngFor="let i of titleFilter(searchTitle)"   >
+      <input type="checkbox" id="checkbox"  [checked]=" i.isSelected" (click)="isSelected(i)" />
+      {{i.title}}</li>
+    </ul>
+   <br><br>
+  
+  <input-tasks [title]="title" (change)="addTask($event)">   </input-tasks>
+
+
+  <ul style="list-style: none"  class= "list-info" >
+        <li id="complete-list" *ngFor="let task of tasks.slice(paginator.pageIndex * paginator.pageSize,
+        (paginator.pageIndex + 1) * paginator.pageSize) |dropdownList : selectedOption " >
+   
+       
+         
+
+          <input type="checkbox" id="checkbox"  [checked]=" task.isSelected" (click)="isSelected(task)" /> &nbsp;
+
+          <input *ngIf ="task.isEdite"  type="text" id="input-list" [(ngModel)]="task.title" />  
+            <label *ngIf ="!task.isEdite" >{{ task.title }}</label> &nbsp; Created On Date:&nbsp; 
+            {{ task.date | date : "mediumDate" }}&nbsp;,{{ task.date | date : "mediumTime" }} 
+       
+            <button *ngIf ="task.isEdite" class="btn btn-dark" (click)="edite(task) ">Update </button>
+            <button *ngIf ="!task.isEdite" class="btn btn-success" (click)="edite(task) ">Edite </button>
+            <button class="btn btn-danger"  (click)="openDialog()">Delete </button>
+        </li>
+       
+    </ul>
+
+    <mat-paginator
+     [length]="tasks.length"
+     [pageSize]="5" 
+    [hidePageSize]="true"
+    [color]=""
+     #paginator
+     ></mat-paginator>
+
+</div>
+
+  
+
+
+
+

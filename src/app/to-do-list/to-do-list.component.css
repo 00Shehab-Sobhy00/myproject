@@ -1,0 +1,17 @@
+
+.form-select {
+  width: 40%;
+}
+
+/*  selected All  */
+.list-info {
+  font-family: "Montserrat";
+  color: #000000;
+  line-height: 1.5;
+
+}
+#checkbox {
+  position: relative;
+  top: 3px;
+}
+
