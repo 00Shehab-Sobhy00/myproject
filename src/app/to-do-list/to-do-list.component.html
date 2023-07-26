@@ -3,10 +3,10 @@
 
   <h2>{{ titleOverAll }}</h2>
 
-
+  <!-- (change)="listFilter(tasks,selectedOption) -->
   <!--  select opstion-->
   <select class="form-select form-select-sm"
-  name="ToDoList" [(ngModel)]="selectedOption">
+  name="ToDoList"   [(ngModel)]="selectedOption"  (change)="listFilter(tasks, selectedOption)"   >
     <option  value="All" > All </option>
     <option value="Complete"> Complete</option> 
   </select> 
@@ -26,11 +26,11 @@
   <input-tasks [title]="title" (change)="addTask($event)">   </input-tasks>
 
 
-  <ul style="list-style: none"  class= "list-info" >
-        <li id="complete-list" *ngFor="let task of tasks.slice(paginator.pageIndex * paginator.pageSize,
-        (paginator.pageIndex + 1) * paginator.pageSize) |dropdownList : selectedOption " >
+  <ul style="list-style: none"  class= "list-info"   >
+        <li id="complete-list"   *ngFor="let task of tasks.slice(paginator.pageIndex * paginator.pageSize,
+        (paginator.pageIndex + 1) * paginator.pageSize)    "   >
    
-       
+        <!-- |dropdownList : selectedOptions   -->
          
 
           <input type="checkbox" id="checkbox"  [checked]=" task.isSelected" (click)="isSelected(task)" /> &nbsp;
@@ -46,7 +46,7 @@
        
     </ul>
 
-    <mat-paginator
+    <mat-paginator  class="paginator"  
      [length]="tasks.length"
      [pageSize]="5" 
     [hidePageSize]="true"

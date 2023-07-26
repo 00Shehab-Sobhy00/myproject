@@ -5,14 +5,20 @@ import { Tasks } from './Tasks';
   pure:false
 })
 export class DropdownListPipe implements PipeTransform {
-  transform(data: Tasks[], selectedOption: string): Tasks[] {
-    if (selectedOption === 'Complete')
-      return data.filter(task => task.isSelected);
-        
-    else
-      return data.filter(task => task) ;
 
+  transform(value: any, ...args: any[]) {
+      
   }
+// Updated  >> ToDoListComponent Class----------------------------------------------------
+
+  // transform(data: Tasks[], selectedOption: string): Tasks[] {
+  //   if (selectedOption === 'Complete')
+  //     return data.filter(task => task.isSelected);
+        
+  //   else
+  //     return data.filter(task => task) ;
+
+  // }
  
 }
 

@@ -3,21 +3,31 @@ import { Tasks } from './Tasks';
 import{MatDialog} from '@angular/material/dialog'
 import { PopUpComponent } from '../delete-pop-up/pop-up.component';
 
+
+
 @Component({
   selector: 'app-to-do-list',
   templateUrl: './to-do-list.component.html',
   styleUrls: ['./to-do-list.component.css']
 
 })
-export class ToDoListComponent {
+export class ToDoListComponent  {
   titleOverAll = "TodoList With Angular";
   tasks : Tasks[]  =[]; 
+   compeleted : Tasks[] = [];
+   contanr : Tasks [] = [];
+
   title!: string;
   searchTitle!:string;
   sreachSwitch!:boolean;
   date: Date = new Date();
-
+  // drop downlist 
+  selectedOption = "All";
+  //checkbox
+  isEdite:boolean | undefined;
+  
   constructor(public dialogRef : MatDialog){}
+ 
 //pop up for deleting task
 openDialog(): void {
   this.dialogRef.open(PopUpComponent,{
@@ -27,10 +37,7 @@ openDialog(): void {
     }
   });
 }
-  // drop downlist 
-  selectedOption = "All";
-  //checkbox
-  isEdite:boolean | undefined;
+
 
 
   addTask(titleName : any) {
@@ -56,11 +63,28 @@ titleFilter(searchTitle : string) : Tasks[] {
   return this.tasks.filter(task =>task.title.includes(searchTitle))
    
 }
-  
+
+listFilter( data : Tasks[] , selectedOption: string): Tasks[] | undefined{
+  if (selectedOption === 'Complete'){
+
+    console.log(data.filter(task => task.isSelected));
+    this.compeleted =  data.filter(task => task.isSelected); 
+    this.contanr = this.tasks
+    this.tasks = this.compeleted;
+       return this.compeleted;
+  }   
+   else if (selectedOption === 'All'){   
+    this.tasks = this.contanr ; 
+      return   this.tasks;
+     }
+     return   undefined
+ 
+}
+
   }
 
   
- 
+  // data.filter(task => task)
 
 
 
